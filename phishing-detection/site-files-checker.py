@@ -1,53 +1,58 @@
 import requests
-from pyvirustotal import AntiVirus
+from urllib.parse import urlparse
 
-# Define the URL pattern
-url_pattern = "https://scamadviser.com/scam"
-
-def scan_file(url):
-    # Use pyvirustotal to check if the file is safe
-    vt = AntiVirus(api_key='your_virustotal_api_key')
-    response = vt.check(url)
+def scan_url(url):
+    # Check if the URL is in the list of suspicious domains
+    suspicious_domains = ['example.com', 'anotherdomain.com']
     
-    if response['result'] == 'clean':
-        print(f"The file {url} has not been flagged as malicious.")
-    elif response['result'] == 'high':
-        print(f"The file {url} has been flagged as potentially malicious due to its high risk of harm or infection.")
-    else:
-        print(f"An unknown result occurred for the file {url}.")
+    # Get the file extension from the URL
+    parsed = urlparse(url)
+    file_extension = parsed.path.split('.')[-1]
     
-    return response
-
-def check_website(ip, domain):
-    # Send a GET request to the IP address and domain
-    url = f"http://{ip}:{domain}"
-    response = requests.get(url)
+    # Define the cyber security status API URLs for viruses, malware, and phishing sites
+    phishing_status_viruses_url = f"https://virustotal.com/api/v1/check/{url}"
+    phishing_status_malware_url = f"https://sitelock.com/api/v1/check/{url}"
+    phishing_status_phishing_url = f"https://phishy.com/api/v1/check/{url}"
+    
+    # Send an HTTP GET request to the phishing status API URLs
+    for site in suspicious_domains:
+        response = requests.get(f"{site}/api/v1/check/{url}")
+        
+        if response.status_code == 200:
+            # Parse the response JSON to extract relevant information
+            data = response.json()
+            
+            # Extract the phishing status from the response JSON
+            phishing_status = data.get('status')
+            
+            if phishing_status is None:
+                print(f"The file {file_extension} has not been flagged as malicious by other parties.")
+            elif phishing_status == "malware site":
+                print(f"The file {file_extension} has been flagged as a malware site by other parties.")
+            elif phishing_status == "spam site":
+                print(f"The file {file_extension} has been flagged as a spam site by other parties.")
+            elif phishing_status == "suspicious":
+                print(f"The file {file_extension} has been flagged as suspicious by other parties.")
+    
+    # Define the malicious file analysis API URLs
+    malicious_file_analysis_url = f"https://phishy.com/api/v1/malware-analysis/{url}"
+    
+    # Send an HTTP GET request to the malicious file analysis API URL
+    response = requests.get(malicious_file_analysis_url)
     
     if response.status_code == 200:
-        # Parse JSON response from Virustotal
-        file_info = scan_file(url)
+        # Parse the response JSON to extract relevant information
+        data = response.json()
         
-        # Check if the file has been downloaded from the suspicious website in the past
-        past_downloads = []
-        for download in response.json()['downloads']:
-            if download['url'] in ip_domain_pattern:
-                past_downloads.append(download['url'])
+        # Extract the results from the response JSON
+        results = data.get('results')
         
-        # Check if the files have been reported negatively about them
-        reports = []
-        for report in file_info['files']:
-            for report_url in report['downloaded_urls']:
-                if report_url in past_downloads:
-                    reports.append(report)
-        
-        # If any suspicious files were found, send an unopened file to these sites
-        for report in reports:
-            print(f"Sending an unopened file from {report['url']} to scan.")
-    
-    return response
-
-# Define the pattern for IP and domain
-ip_domain_pattern = "your_ip_domain_pattern"
+        if results is None:
+            print(f"The file {file_extension} has not been flagged as malicious by other parties.")
+        else:
+            for result in results:
+                print(result)
 
 # Example usage
-scan_website("192.168.0.1", "example.com")
+url = "example.com"
+scan_url(url)
