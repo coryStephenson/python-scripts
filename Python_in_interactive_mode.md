@@ -112,4 +112,17 @@ Type "help", "copyright", "credits" or "license" for more information.
 
 # Multiple assignment example
 >>>x, y, z = 0, 0, 0
+
+>>>print(5 + 3)
+
+>>>print(11 - 3)
+
+>>>print(2 * 4)
+
+>>>print(16 / 2)
+
+# Reveals your favorite number using an f-string
+>>>favorite_number = 21
+>>>print(f"My favorite number is: {favorite_number}" )
+My favorite number is: 21
 ```
