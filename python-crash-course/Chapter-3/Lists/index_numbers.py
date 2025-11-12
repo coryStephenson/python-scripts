@@ -1,4 +1,4 @@
-# Index positions star at 0, not 1.
+# Index positions start at 0, not 1.
 
 bicycles = ['trek', 'cannondale', 'redline', 'specialized']
 print(bicycles[1])
