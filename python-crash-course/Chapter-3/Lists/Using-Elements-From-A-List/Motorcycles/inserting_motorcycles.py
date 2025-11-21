@@ -1,4 +1,4 @@
 motorcycles = ['honda', 'yamaha', 'suzuki']
 
-motorcycles.insert('ducati')
+motorcycles.insert(0, 'ducati')
 print(motorcycles)
