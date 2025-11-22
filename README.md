@@ -6,6 +6,18 @@
 - [Python Package Index (PyPI)](https://pypi.org/)
 - [The Python Packaging Authority (PyPA)](https://www.pypa.io/en/latest/)
 - [Package Installer for Python](https://pip.pypa.io/en/stable/#)
+- [Python GUIs](https://www.pythonguis.com/)
+
+| Reserved  | Words    | in | Python |
+|-----|-----|-----|-----|
+| False | def | if | raise |
+| None | del | import | return |
+| True | elif | in | try |
+| and | else | is | while |
+| as | except | lambda | with |
+| break | for | not | class |
+| from | or | continue | global |
+| pass |     |     |     |
 
 ## Packages for Computer Networking
 
