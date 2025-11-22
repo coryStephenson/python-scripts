@@ -46,25 +46,31 @@ Type "help", "copyright", "credits" or "license" for more information.
 
 # Addition
 >>>2 + 3
+5
 
 # Subtraction
 >>>3 - 2
+1
 
 # Multiplication
 >>>2 * 3
+6
 
-# Division
+# Division (result is expressed as a float)
 >>>3 / 2
+1.5
 
 # Exponents ( 3^2 = 9 )
 >>>3 ** 2
+9
 
 # Exponents ( 3^3 = 27 )
 >>>3 ** 3
+27
 
 # Exponents ( 10^6 = 1000000 )
 >>>10 ** 6
-
+1000000
 
 # Order of Operations example (PEMDAS) Multiplication before Addition
 >>>2 + 3*4
@@ -114,15 +120,24 @@ Type "help", "copyright", "credits" or "license" for more information.
 >>>x, y, z = 0, 0, 0
 
 >>>print(5 + 3)
+8
 
 >>>print(11 - 3)
+8
 
 >>>print(2 * 4)
+8
 
 >>>print(16 / 2)
+8.0
 
 # Reveals your favorite number using an f-string
 >>>favorite_number = 21
 >>>print(f"My favorite number is: {favorite_number}" )
 My favorite number is: 21
+
+# Finding the length of a list
+>>>cars = ['bmw', 'audi', 'toyota', 'subaru']
+>>>len(cars)
+4
 ```
