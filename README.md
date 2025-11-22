@@ -17,7 +17,8 @@
 | as | except | lambda | with |
 | break | for | not | class |
 | from | or | continue | global |
-| pass |     |     |     |
+| pass | await | finally | nonlocal |
+| assert | yield |  | |
 
 ## Packages for Computer Networking
 
