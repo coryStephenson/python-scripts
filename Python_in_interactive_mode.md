@@ -56,7 +56,7 @@ Type "help", "copyright", "credits" or "license" for more information.
 >>>2 * 3
 6
 
-# Division (result is expressed as a float)
+# Division (integer division produces a floating point result)
 >>>3 / 2
 1.5
 
