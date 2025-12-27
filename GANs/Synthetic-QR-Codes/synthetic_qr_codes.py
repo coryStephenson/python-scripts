@@ -131,11 +131,16 @@ discriminator.summary()
 # Combine the generator and discriminator into a single model,
 # allowing the generator to be trained through the discriminator's feedback.
 def build_gan(generator, discriminator):
-    discriminator.trainable = False  # Freeze the discriminator during GAN training
+    # Freeze the discriminator during GAN training
+    discriminator.trainable = False
     
-    # Define the input and output for the GAN model
-    gan_input = generator.input
-    gan_output = discriminator(generator.output)
+    # Define the input explicitly
+    from tensorflow.keras.layers import Input
+    gan_input = Input(shape=(100,))
+    
+    # Connect the generator and discriminator
+    generated_image = generator(gan_input)
+    gan_output = discriminator(generated_image)
     
     # Create the GAN model
     gan = Model(gan_input, gan_output)
@@ -143,12 +148,14 @@ def build_gan(generator, discriminator):
     # Compile the GAN model with binary crossentropy loss and Adam optimizer
     gan.compile(loss='binary_crossentropy', optimizer=Adam(0.0002, 0.5))
     
+    # IMPORTANT: Re-enable the discriminator for its own training
+    discriminator.trainable = True
+    
     return gan
 
 # Build the GAN model and display its architecture
 gan = build_gan(generator, discriminator)
 gan.summary()
-
 # Train the GAN
 '''
 You can experiment with different epoch values to find the optimal training duration. Be aware that running a large number of epochs may lead to kernel issues due to high resource usage.
